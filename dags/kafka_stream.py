@@ -51,11 +51,10 @@ def stream_data():
         producer = KafkaProducer(bootstrap_servers=['broker:29092'],api_version = (2, 5, 0), max_block_ms=500000)
         print(producer.config['api_version'])
         print("Producer Created Successfully")
-        producer.send('user_created', res)
+        producer.send('user_created', json.dumps(res).encode('utf-8'))
         print("Sent Data Successfully")
     except Exception as e:
         print("Failed to connect to Kafka broker : ", e)
-
 
 
 with DAG('user_automation',
